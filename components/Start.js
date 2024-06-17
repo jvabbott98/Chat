@@ -1,6 +1,6 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 
 
 
@@ -75,6 +75,7 @@ const Start = ({ navigation }) => {
 
 
         </View>
+        {Platform.OS === "ios"?<KeyboardAvoidingView behavior="padding" />: null}
       </View>
 
 

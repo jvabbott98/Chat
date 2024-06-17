@@ -1,11 +1,32 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 
 
 const Chat = ({ route, navigation }) => {
   const [messages, setMessages] = useState([]);
-  
+  // import name and chatBackgroundColor from Start.js
+  const { name } = route.params;
+  const { chatBackgroundColor } = route.params;
+
+  const onSend = (newMessages) => {
+    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
+  }
+
+  const renderBubble = (props) => {
+    return <Bubble
+    {...props}
+    wrapperStyle={{
+      right: {
+        backgroundColor: "#000"
+      },
+      left: {
+        backgroundColor: "#FFF"
+      }
+    }}
+    />
+  }
+
   useEffect(() => {
     setMessages([
       {
@@ -18,12 +39,14 @@ const Chat = ({ route, navigation }) => {
           avatar: "https://placeimg.com/140/140/any",
         },
       },
+      {
+        _id: 2,
+        text: 'This is a system message',
+        createdAt: new Date(),
+        system: true,
+      },
     ]);
   }, []);
-
-  // import name and chatBackgroundColor from Start.js
-  const { name } = route.params;
-  const { chatBackgroundColor } = route.params;
 
   // set screen title to the what the user typed in the textInput field in Start.js
   useEffect(() => {
@@ -32,17 +55,29 @@ const Chat = ({ route, navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: chatBackgroundColor }]}>
-      <Text>Hello Chat!</Text>
+      <GiftedChat
+        style={styles.chat}
+        messages={messages}
+        renderBubble={renderBubble}
+        onSend={messages => onSend(messages)}
+        user={{
+          _id: 1
+        }}
+      />
+      { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
     </View>
+      
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+  },
+
 });
 
 export default Chat;
+
+{/* <View style={[styles.container, { backgroundColor: chatBackgroundColor }]}> */}
