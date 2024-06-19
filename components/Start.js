@@ -1,12 +1,25 @@
 import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
-
+import { getAuth, signInAnonymously } from "firebase/auth";
+import { Alert } from 'react-native';
 
 
 const Start = ({ navigation }) => {
   const [name, setName] = useState('');
   const [chatBackgroundColor, setChatBackgroundColor] = useState();
+  const auth = getAuth();
+
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then(result => {
+        navigation.navigate('Chat', {name: name, chatBackgroundColor: chatBackgroundColor, userID: result.user.uid});
+        Alert.alert("Signed in Successfully");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try later again.")
+      })
+  }
 
   return (
 
@@ -65,7 +78,7 @@ const Start = ({ navigation }) => {
           <View style={styles.buttonWrapper}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Chat', {name: name, chatBackgroundColor: chatBackgroundColor})}
+              onPress={signInUser}
             >
               <Text style={styles.buttonText}>Start Chatting</Text>
             </TouchableOpacity>
