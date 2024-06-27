@@ -1,4 +1,3 @@
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { getAuth, signInAnonymously } from "firebase/auth";
@@ -13,7 +12,7 @@ const Start = ({ navigation }) => {
   const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {
-        navigation.navigate('Chat', {name: name, chatBackgroundColor: chatBackgroundColor, userID: result.user.uid});
+        navigation.navigate('Chat', { name: name, chatBackgroundColor: chatBackgroundColor, userID: result.user.uid });
         Alert.alert("Signed in Successfully");
       })
       .catch((error) => {
@@ -51,26 +50,26 @@ const Start = ({ navigation }) => {
             </Text>
           </View>
 
-{/* setChatBackgroundColor matches color in stylesheet */}
+          {/* setChatBackgroundColor matches color in stylesheet */}
           <View style={styles.opacityWrapper}>
-            <TouchableOpacity 
-            style={[styles.opacity, styles.opacityBlack]}
-            onPress={() => setChatBackgroundColor('#090C08')}
+            <TouchableOpacity
+              style={[styles.opacity, styles.opacityBlack]}
+              onPress={() => setChatBackgroundColor('#090C08')}
             >
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={[styles.opacity, styles.opacityPurple]}
-            onPress={() => setChatBackgroundColor('#474056')}
+            <TouchableOpacity
+              style={[styles.opacity, styles.opacityPurple]}
+              onPress={() => setChatBackgroundColor('#474056')}
             >
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={[styles.opacity, styles.opacityBlue]}
-            onPress={() => setChatBackgroundColor('#8A95A5')}
+            <TouchableOpacity
+              style={[styles.opacity, styles.opacityBlue]}
+              onPress={() => setChatBackgroundColor('#8A95A5')}
             >
             </TouchableOpacity>
-            <TouchableOpacity 
-            style={[styles.opacity, styles.opacityGreen]}
-            onPress={() => setChatBackgroundColor('#B9C6AE')}
+            <TouchableOpacity
+              style={[styles.opacity, styles.opacityGreen]}
+              onPress={() => setChatBackgroundColor('#B9C6AE')}
             >
             </TouchableOpacity>
           </View>
@@ -88,7 +87,7 @@ const Start = ({ navigation }) => {
 
 
         </View>
-        {Platform.OS === "ios"?<KeyboardAvoidingView behavior="padding" />: null}
+        {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
       </View>
 
 
