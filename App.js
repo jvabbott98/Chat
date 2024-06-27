@@ -15,6 +15,8 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
+//Check that the app is connected to the internet
   const connectionStatus = useNetInfo();
   useEffect(() => {
     if (connectionStatus.isConnected === false) {
@@ -25,6 +27,7 @@ const App = () => {
     }
   }, [connectionStatus.isConnected]);
 
+//Unique configuration from firestore database
   const firebaseConfig = {
     apiKey: "AIzaSyDyTU56HfsL0L4iLgeatIeaKy0rCes95ig",
     authDomain: "chat-eff4c.firebaseapp.com",

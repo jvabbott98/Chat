@@ -9,6 +9,7 @@ const Start = ({ navigation }) => {
   const [chatBackgroundColor, setChatBackgroundColor] = useState();
   const auth = getAuth();
 
+//Sign in user and use props passed from App.js
   const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {

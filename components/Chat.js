@@ -13,6 +13,7 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
 
   let unsubMessages;
 
+//If app is connected to the internet, pull from database, else pull from local cache
   useEffect(() => {
     navigation.setOptions({ title: name });
 
@@ -54,13 +55,14 @@ const Chat = ({ db, route, navigation, isConnected, storage }) => {
     }
   }
 
+//Add messages to firestore database upon sending a message
   const onSend = (newMessages = []) => {
     newMessages.forEach(message => {
       addDoc(collection(db, "messages"), message);
     });
   };
 
-
+//Hide the input bar if not connected to the internet
   const renderInputToolbar = (props) => {
     if (isConnected === true) return <InputToolbar {...props} />;
     else return null;

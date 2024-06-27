@@ -6,7 +6,8 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
     const actionSheet = useActionSheet();
-    
+
+//Creates an expandable window in the toolbar where users can choose to send a picuture from device photos, take and send a photo, and send location.
     const onActionPress = () => {
         const options = ['Choose From Library', 'Take Picture', 'Send Location', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
